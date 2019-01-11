@@ -133,3 +133,11 @@ $fileSystem->dontSeeFileFoundMatches('/test$/', '/path/to/dir');
 make php-cs-check
 make php-cs-fix
 ```
+
+### Tests
+
+Unit
+
+```bash
+make test-unit
+```

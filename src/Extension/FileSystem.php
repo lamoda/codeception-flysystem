@@ -67,7 +67,7 @@ class FileSystem
      *
      * @return array
      */
-    public function grabFileList($path)
+    public function grabFileList($path = '')
     {
         $list = [];
         $content = $this->flySystem->listContents($path);
