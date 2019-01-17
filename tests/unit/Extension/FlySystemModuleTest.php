@@ -137,7 +137,7 @@ MSG
                 <<<MSG
 Lamoda\Codeception\Extension\FlySystemModule module is not configured!
  
-Unexpected error happened on creation adapter factory, NonexistentClass
+Adapter NonexistentClass does not exist, please use another one
 MSG
             ],
             [
