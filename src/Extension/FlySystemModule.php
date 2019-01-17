@@ -88,7 +88,7 @@ class FlySystemModule extends CodeceptionModule
     private function createAdapterFactory($className)
     {
         if (!class_exists($className)) {
-            $message = sprintf('Unexpected error happened on creation adapter factory, %s', $className);
+            $message = sprintf('Adapter %s does not exist, please use another one', $className);
             throw new ModuleConfigException(__CLASS__, $message);
         }
 
