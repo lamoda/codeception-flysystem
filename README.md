@@ -1,5 +1,10 @@
 # Codeception FlySystem Extension
 
+[![Build Status](https://travis-ci.org/lamoda/codeception-flysystem.svg?branch=master)](https://travis-ci.org/lamoda/codeception-flysystem)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/lamoda/codeception-flysystem/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/lamoda/codeception-flysystem/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/lamoda/codeception-flysystem/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/lamoda/codeception-flysystem/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/lamoda/codeception-flysystem/badges/build.png?b=master)](https://scrutinizer-ci.com/g/lamoda/codeception-flysystem/build-status/master)
+
 This extension supports working with [FlySystem](https://flysystem.thephpleague.com/) with several adapters.
 
 Provides a set of methods for checking and modifying files on remote storage.
@@ -132,4 +137,12 @@ $fileSystem->dontSeeFileFoundMatches('/test$/', '/path/to/dir');
 ```bash
 make php-cs-check
 make php-cs-fix
+```
+
+### Tests
+
+Unit
+
+```bash
+make test-unit
 ```

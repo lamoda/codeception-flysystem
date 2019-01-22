@@ -6,7 +6,6 @@ use Codeception\Exception\ModuleConfigException;
 use Codeception\Exception\TestRuntimeException;
 use Codeception\Module as CodeceptionModule;
 use Lamoda\Codeception\Extension\AdapterFactory\AdapterFactoryInterface;
-use Exception;
 use League\Flysystem\Filesystem as FlySystem;
 
 class FlySystemModule extends CodeceptionModule
@@ -88,12 +87,12 @@ class FlySystemModule extends CodeceptionModule
      */
     private function createAdapterFactory($className)
     {
-        try {
-            $adapterFactory = new $className();
-        } catch (Exception $exception) {
-            $message = sprintf('Unexpected error happened on creation adapter factory, %s', $className);
-            throw new ModuleConfigException(__CLASS__, $message, $exception);
+        if (!class_exists($className)) {
+            $message = sprintf('Adapter %s does not exist, please use another one', $className);
+            throw new ModuleConfigException(__CLASS__, $message);
         }
+
+        $adapterFactory = new $className();
 
         if (!$adapterFactory instanceof AdapterFactoryInterface) {
             $message = sprintf('Adapter factory class must implement %s, %s adapter factory given', AdapterFactoryInterface::class, $className);
