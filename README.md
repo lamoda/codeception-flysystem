@@ -23,14 +23,14 @@ Provides a set of methods for checking and modifying files on remote storage.
             \Lamoda\Codeception\Extension\FlySystemModule:
                 adapters:
                     webdav:
-                        builderAdapter: \Lamoda\Codeception\Extension\AdapterBuilder\WebdavAdapterBuilder
+                        builderAdapter: \Lamoda\Codeception\Extension\AdapterFactory\WebdavAdapterFactory
                         config:
                             baseUri: "http://webdav-host"
                             userName: "userName"
                             password: "password"
                             authType: "authType"
                     sftp:
-                        builderAdapter: \Lamoda\Codeception\Extension\AdapterBuilder\SftpAdapterBuilder
+                        builderAdapter: \Lamoda\Codeception\Extension\AdapterFactory\SftpAdapterFactory
                         config:
                             host: "http://sftp-host"
                             username: "username"
@@ -58,7 +58,7 @@ modules:
         \Lamoda\Codeception\Extension\FlySystemModule:
             adapters:
                 sftp:
-                    builderAdapter: \Lamoda\Codeception\Extension\AdapterBuilder\SftpAdapterBuilder
+                    builderAdapter: \Lamoda\Codeception\Extension\AdapterFactory\SftpAdapterFactory
                     config:
                         host: "http://sftp-host"
                         username: "username"
@@ -83,7 +83,7 @@ modules:
         \Lamoda\Codeception\Extension\FlySystemModule:
             adapters:
                 webdav:
-                    builderAdapter: \Lamoda\Codeception\Extension\AdapterBuilder\WebdavAdapterBuilder
+                    builderAdapter: \Lamoda\Codeception\Extension\AdapterFactory\WebdavAdapterFactory
                     config:
                         baseUri: "http://webdav-host"
                         userName: "userName"
