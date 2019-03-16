@@ -5,11 +5,11 @@
   "license": "MIT",
   "minimum-stability": "stable",
   "require": {
-    "php": ">=5.6",
-    "codeception/codeception": "~2.3.0",
-    "oneup/flysystem-bundle": "~1.7.0",
-    "league/flysystem-sftp": "~1.0.0",
-    "league/flysystem-webdav": "~1.0.0"
+    "php": ">=7.1",
+    "codeception/codeception": "~2.5",
+    "oneup/flysystem-bundle": "~3.0",
+    "league/flysystem-sftp": "~1.0",
+    "league/flysystem-webdav": "~1.0"
   },
   "autoload": {
     "psr-4": {
