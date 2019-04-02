@@ -37,6 +37,16 @@ Provides a set of methods for checking and modifying files on remote storage.
                             password: "password"
                             port: "22"
                             root: "/"
+                    s3:
+                        builderAdapter: \Lamoda\Codeception\Extension\AdapterFactory\AwsS3AdapterFactory
+                        config:
+                            bucket: "your-bucket"
+                            endpoint: "endpoint" # if you are using S3-compatible object storage service
+                            credentials: 
+                                key: "key"
+                                secret: "secret"
+                            region: "region"
+                            version: "version"                         
     ```
 
 3. Include to suite
@@ -95,6 +105,33 @@ Usage:
 
 ```php
 $fileSystem = $this->tester->getFileSystem('webdav');
+```
+
+### [AWS S3](https://flysystem.thephpleague.com/adapter/aws-s3/)
+
+Configuration example:
+
+```yaml
+modules:
+    config:
+        \Lamoda\Codeception\Extension\FlySystemModule:
+            adapters:
+                s3:
+                    builderAdapter: \Lamoda\Codeception\Extension\AdapterFactory\AwsS3AdapterFactory
+                    config:
+                        bucket: "your-bucket"
+                        endpoint: "endpoint" # if you are using S3-compatible object storage service
+                        credentials: 
+                            key: "key"
+                            secret: "secret"
+                        region: "region"
+                        version: "version" 
+```
+
+Usage:
+
+```php
+$fileSystem = $this->tester->getFileSystem('s3');
 ```
 
 ## Usage
