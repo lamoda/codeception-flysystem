@@ -51,6 +51,14 @@ class FileSystem
     }
 
     /**
+     * @param $path
+     */
+    public function createDir($path)
+    {
+        $this->flySystem->createDir($path);
+    }
+
+    /**
      * @param string $path
      * @param string $newPath
      *

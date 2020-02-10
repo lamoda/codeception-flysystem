@@ -94,6 +94,32 @@ class FileSystemTest extends Unit
     }
 
     /**
+     * @param string $path
+     *
+     * @dataProvider dataDirPath
+     */
+    public function testCreateDir($path)
+    {
+        $flySystem = $this->createMock(FilesystemInterface::class);
+        $flySystem
+            ->expects($this->once())
+            ->method('createDir')
+            ->with($path);
+
+        $fileSystem = new FileSystem($flySystem);
+        $fileSystem->createDir($path);
+    }
+
+    public function dataDirPath()
+    {
+        return [
+            [
+                'path/to/dir',
+            ],
+        ];
+    }
+
+    /**
      * @param $path
      * @param $newPath
      *
