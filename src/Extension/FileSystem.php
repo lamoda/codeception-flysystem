@@ -25,37 +25,48 @@ class FileSystem
      * @param array $config
      *
      * @throws FileExistsException
+     *
+     * @return bool
      */
     public function writeFile($path, $contents, array $config = [])
     {
-        $this->flySystem->write($path, $contents, $config);
+        return $this->flySystem->write($path, $contents, $config);
     }
 
     /**
      * @param string $path
      *
      * @throws FileNotFoundException
+     *
+     * @return bool
      */
     public function deleteFile($path)
     {
-        $this->flySystem->delete($path);
+        return $this->flySystem->delete($path);
     }
 
     /**
-     * @param string $path
+     * @param string
+     *
+     * @return bool
      */
     public function clearDir($path)
     {
-        $this->flySystem->deleteDir($path);
-        $this->flySystem->createDir($path);
+        if (!$this->flySystem->deleteDir($path)) {
+            return false;
+        }
+
+        return $this->flySystem->createDir($path);
     }
 
     /**
      * @param $path
+     *
+     * @return bool
      */
     public function createDir($path)
     {
-        $this->flySystem->createDir($path);
+        return $this->flySystem->createDir($path);
     }
 
     /**
@@ -64,10 +75,12 @@ class FileSystem
      *
      * @throws FileExistsException
      * @throws FileNotFoundException
+     *
+     * @return bool
      */
     public function copyFile($path, $newPath)
     {
-        $this->flySystem->copy($path, $newPath);
+        return $this->flySystem->copy($path, $newPath);
     }
 
     /**
