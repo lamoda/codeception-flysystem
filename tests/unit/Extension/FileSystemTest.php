@@ -13,112 +13,191 @@ class FileSystemTest extends Unit
     /**
      * @param array $parameters
      * @param array $expectedParameters
+     * @param bool  $operationResult
      *
      * @throws \League\Flysystem\FileExistsException
      *
      * @dataProvider dataWriteFile
      */
-    public function testWriteFile($parameters, $expectedParameters)
+    public function testWriteFile($parameters, $expectedParameters, $operationResult)
     {
         $flySystem = $this->createMock(FilesystemInterface::class);
         $flySystem
             ->expects($this->once())
             ->method('write')
-            ->with(...$expectedParameters);
+            ->with(...$expectedParameters)
+            ->willReturn($operationResult);
 
         $fileSystem = new FileSystem($flySystem);
-        $fileSystem->writeFile(...$parameters);
+
+        $this->assertEquals($operationResult, $fileSystem->writeFile(...$parameters));
     }
 
     public function dataWriteFile()
     {
         return [
             [
-                ['path/to/file', 'file content', ['key' => 'value']],
-                ['path/to/file', 'file content', ['key' => 'value']],
+                'Parameters' => ['path/to/file', 'file content', ['key' => 'value']],
+                'Expected parameters' => ['path/to/file', 'file content', ['key' => 'value']],
+                'Operation result' => true,
             ],
             [
-                ['path/to/file', 'file content'],
-                ['path/to/file', 'file content', []],
+                'Parameters' => ['path/to/file', 'file content'],
+                'Expected parameters' => ['path/to/file', 'file content', []],
+                'Operation result' => true,
+            ],
+            [
+                'Parameters' => ['path/to/file', 'file content'],
+                'Expected parameters' => ['path/to/file', 'file content', []],
+                'Operation result' => false,
             ],
         ];
     }
 
     /**
      * @param string $path
+     * @param bool   $operationResult
      *
      * @throws FileNotFoundException
      *
      * @dataProvider dataFilePath
      */
-    public function testDeleteFile($path)
+    public function testDeleteFile($path, $operationResult)
     {
         $flySystem = $this->createMock(FilesystemInterface::class);
         $flySystem
             ->expects($this->once())
             ->method('delete')
-            ->with($path);
+            ->with($path)
+            ->willReturn($operationResult);
 
         $fileSystem = new FileSystem($flySystem);
-        $fileSystem->deleteFile($path);
+
+        $this->assertEquals($operationResult, $fileSystem->deleteFile($path));
     }
 
     /**
      * @param string $path
+     * @param bool   $operationResult
      *
      * @dataProvider dataFilePath
      */
-    public function testClearDir($path)
+    public function testClearDir($path, $operationResult)
     {
         $flySystem = $this->createMock(FilesystemInterface::class);
         $flySystem
             ->expects($this->once())
             ->method('deleteDir')
-            ->with($path);
+            ->with($path)
+            ->willReturn(true);
         $flySystem
             ->expects($this->once())
             ->method('createDir')
-            ->with($path);
+            ->with($path)
+            ->willReturn($operationResult);
 
         $fileSystem = new FileSystem($flySystem);
-        $fileSystem->clearDir($path);
+        $this->assertEquals($operationResult, $fileSystem->clearDir($path));
     }
 
     public function dataFilePath()
     {
         return [
             [
-                'path/to/file',
+                'Path' => 'path/to/file',
+                'Operation result' => true,
+            ],
+            [
+                'Path' => 'path/to/file',
+                'Operation result' => false,
+            ],
+        ];
+    }
+
+    public function testClearDirErrorOnDeleting()
+    {
+        $flySystem = $this->createMock(FilesystemInterface::class);
+        $flySystem
+            ->expects($this->once())
+            ->method('deleteDir')
+            ->with('/some/path')
+            ->willReturn(false);
+        $flySystem
+            ->expects($this->never())
+            ->method('createDir');
+
+        $fileSystem = new FileSystem($flySystem);
+        $this->assertFalse($fileSystem->clearDir('/some/path'));
+    }
+
+    /**
+     * @param string $path
+     * @param bool   $operationResult
+     *
+     * @dataProvider dataDirPath
+     */
+    public function testCreateDir($path, $operationResult)
+    {
+        $flySystem = $this->createMock(FilesystemInterface::class);
+        $flySystem
+            ->expects($this->once())
+            ->method('createDir')
+            ->with($path)
+            ->willReturn($operationResult);
+
+        $fileSystem = new FileSystem($flySystem);
+        $this->assertEquals($operationResult, $fileSystem->createDir($path));
+    }
+
+    public function dataDirPath()
+    {
+        return [
+            [
+                'Path' => 'path/to/dir',
+                'Operation result' => true,
+            ],
+            [
+                'Path' => 'path/to/dir',
+                'Operation result' => false,
             ],
         ];
     }
 
     /**
-     * @param $path
+     * @param string $path
      * @param $newPath
+     * @param bool   $operationResult
      *
      * @throws FileNotFoundException
      * @throws \League\Flysystem\FileExistsException
      *
      * @dataProvider dataFilePaths
      */
-    public function testCopyFile($path, $newPath)
+    public function testCopyFile($path, $newPath, $operationResult)
     {
         $flySystem = $this->createMock(FilesystemInterface::class);
         $flySystem
             ->expects($this->once())
             ->method('copy')
-            ->with($path, $newPath);
+            ->with($path, $newPath)
+            ->willReturn($operationResult);
 
         $fileSystem = new FileSystem($flySystem);
-        $fileSystem->copyFile($path, $newPath);
+        $this->assertEquals($operationResult, $fileSystem->copyFile($path, $newPath));
     }
 
     public function dataFilePaths()
     {
         return [
             [
-                'old/path/to/file', 'new/path/to/file',
+                'Path' => 'old/path/to/file',
+                'New path' => 'new/path/to/file',
+                'Operation result' => true,
+            ],
+            [
+                'Path' => 'old/path/to/file',
+                'New path' => 'new/path/to/file',
+                'Operation result' => false,
             ],
         ];
     }
