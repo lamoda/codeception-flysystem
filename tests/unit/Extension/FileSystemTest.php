@@ -114,9 +114,6 @@ class FileSystemTest extends Unit
         ];
     }
 
-    /**
-     * @param string $path
-     */
     public function testClearDirErrorOnDeleting()
     {
         $flySystem = $this->createMock(FilesystemInterface::class);
@@ -167,7 +164,7 @@ class FileSystemTest extends Unit
     }
 
     /**
-     * @param $path
+     * @param string $path
      * @param $newPath
      * @param bool   $operationResult
      *

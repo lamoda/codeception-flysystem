@@ -46,7 +46,7 @@ class FileSystem
     }
 
     /**
-     * @param string
+     * @param string $path
      *
      * @return bool
      */
@@ -60,7 +60,7 @@ class FileSystem
     }
 
     /**
-     * @param $path
+     * @param string $path
      *
      * @return bool
      */
