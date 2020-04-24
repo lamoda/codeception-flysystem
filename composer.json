@@ -6,11 +6,12 @@
   "minimum-stability": "stable",
   "require": {
     "php": ">=7.1",
-    "codeception/codeception": "~2.5",
+    "codeception/codeception": "^4.0",
     "oneup/flysystem-bundle": "~3.0",
     "league/flysystem-aws-s3-v3": "~1.0",
     "league/flysystem-sftp": "~1.0",
-    "league/flysystem-webdav": "~1.0"
+    "league/flysystem-webdav": "~1.0",
+    "codeception/module-asserts": "^1.0.0"
   },
   "autoload": {
     "psr-4": {
